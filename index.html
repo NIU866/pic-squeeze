@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="在浏览器本地批量压缩、缩放和转换图片。">
+<title>图片批量压缩器 · PXL Batch</title>
+<link rel="stylesheet" href="styles.css">
+<header class="header">
+  <div class="mast">
+    <div><div class="brand">PXL BATCH</div><h1>图片批量压缩器</h1></div>
+    <a href="https://github.com/NIU866/batch-image-compressor">GitHub 源码</a>
+  </div>
+</header>
+<main>
+  <div class="workspace">
+    <section class="panel queue" aria-labelledby="queue-title">
+      <div class="drop" id="drop">
+        <div><h2 id="queue-title">拖入图片</h2><p>静态 JPG、PNG 或 WebP，最多 50 张。</p></div>
+        <button id="add" class="primary">选择图片</button>
+        <input id="files" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" multiple hidden>
+      </div>
+      <div class="stats">
+        <div><span>已选图片</span><strong id="count">0 张</strong></div>
+        <div><span>原图大小</span><strong id="original">—</strong></div>
+        <div><span>输出大小</span><strong id="compressed">—</strong></div>
+        <div><span>体积变化</span><strong id="difference">—</strong></div>
+      </div>
+      <ul id="items" aria-label="图片处理列表"></ul>
+      <p class="empty" id="empty">选择图片后，这里会显示每张的处理结果。</p>
+    </section>
+    <aside class="panel controls" aria-labelledby="options-title">
+      <h2 id="options-title">输出设置</h2>
+      <label>格式
+        <select id="format">
+          <option value="image/webp" selected>WebP</option>
+          <option value="image/jpeg">JPEG</option>
+          <option value="image/png">PNG</option>
+          <option value="original">保持原格式</option>
+        </select>
+      </label>
+      <label for="quality">质量 <output id="quality-value" for="quality">78%</output></label>
+      <input type="range" id="quality" min="10" max="100" value="78">
+      <label>最长边（像素）
+        <input type="number" id="limit" min="0" max="16384" step="1" value="1920">
+      </label>
+      <p class="hint">填 0 保留原尺寸。JPEG 的透明区域填白，PNG 不使用质量滑块。</p>
+      <button id="run" class="primary" disabled>开始处理</button>
+      <button id="archive" disabled>下载全部 ZIP</button>
+      <button id="clear" class="quiet" disabled>清空图片</button>
+      <p class="local">图片在浏览器内处理。</p>
+    </aside>
+  </div>
+  <p id="status" role="status"></p>
+</main>
+<script type="module" src="app.mjs"></script>
+</html>
